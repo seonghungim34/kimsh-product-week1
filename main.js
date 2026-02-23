@@ -1,8 +1,30 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const lottoContainer = document.getElementById('lotto-container');
     const generateBtn = document.getElementById('generate-btn');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
 
+    // Theme Management
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            themeIcon.textContent = '☀️';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeIcon.textContent = '🌙';
+        }
+    });
+
+    // Lotto Generation Logic
     generateBtn.addEventListener('click', () => {
         lottoContainer.innerHTML = '';
         const numbers = new Set();
